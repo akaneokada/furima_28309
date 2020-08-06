@@ -21,6 +21,7 @@ Layout/LineLength:
 
 # RSpecは1つのブロックあたりの行数が多く、エラー判別するので、チェックから除外
 # ブロック内の行数をチェックする
+Metrics/BlockLength:
  Exclude:
    - "spec/**/*"
 
