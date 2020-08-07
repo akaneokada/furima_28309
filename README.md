@@ -35,6 +35,7 @@
 ### Association
 - belongs_to :user
 - has_one :buyer
+- has_one :shipping_addresses
 
 ## buyers テーブル
 
@@ -42,23 +43,21 @@
 | ------------------- | ------- | ----------- |
 | user_id             | integer | null: false |
 | item_id             | integer | null: false |
-| shipping_address_id | integer | null: false |
 
 ### Association
 - belongs_to :item
 - belongs_to :user
-- belongs_to :shipping_address
 
 ## shipping_addresses テーブル
 
 | Column             | Type    | Options     |
 | ------------------ | ------- | ----------- |
 | postal_code        | integer | null: false |
-| prefectures        | string  | null: false |
+| prefectures        | integer | null: false |
 | municipal_district | string  | null: false |
 | address            | string  | null: false |
 | building_name      | string  |             |
 | phone_number       | integer | null: false |
 
 ### Association
-- has_one :buyer
+- belongs_to :item
