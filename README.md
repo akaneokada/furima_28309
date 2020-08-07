@@ -58,6 +58,7 @@
 | address            | string  | null: false |
 | building_name      | string  |             |
 | phone_number       | integer | null: false |
+| item_id            | integer | null: false |
 
 ### Association
 - belongs_to :item
