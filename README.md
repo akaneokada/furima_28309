@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column           | Type    | Options     |
-| ---------------- | ------- | ----------- |
-| name             | string  | null: false |
-| email            | string  | null: false |
-| password         | string  | null: false |
-| family_name      | string  | null: false |
-| first_name       | string  | null: false |
-| family_name_kana | string  | null: false |
-| first_name_kana  | string  | null: false |
-| birthday         | integer | null: false |
+| Column           | Type   | Options     |
+| ---------------- | ------ | ----------- |
+| name             | string | null: false |
+| email            | string | null: false |
+| password         | string | null: false |
+| family_name      | string | null: false |
+| first_name       | string | null: false |
+| family_name_kana | string | null: false |
+| first_name_kana  | string | null: false |
+| birthday         | date   | null: false |
 
 ### Association
 - has_many :items
@@ -52,12 +52,12 @@
 
 | Column             | Type    | Options     |
 | ------------------ | ------- | ----------- |
-| postal_code        | integer | null: false |
+| postal_code        | string  | null: false |
 | prefectures        | integer | null: false |
 | municipal_district | string  | null: false |
 | address            | string  | null: false |
 | building_name      | string  |             |
-| phone_number       | integer | null: false |
+| phone_number       | string  | null: false |
 | item_id            | integer | null: false |
 
 ### Association
