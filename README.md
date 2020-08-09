@@ -60,5 +60,5 @@
 | phone_number       | string  | null: false |
 | item_id            | integer | null: false |
 
-### Association
 - belongs_to :item
+
