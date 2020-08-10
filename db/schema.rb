@@ -16,16 +16,16 @@ ActiveRecord::Schema.define(version: 2020_08_10_053614) do
     t.string "name", null: false
     t.text "image", null: false
     t.text "content", null: false
-    t.integer "category", null: false
-    t.integer "status", null: false
+    t.integer "category_id", null: false
+    t.integer "status_id", null: false
     t.integer "price", null: false
-    t.integer "delivery_fee", null: false
-    t.integer "shipping_region", null: false
-    t.integer "days_until_shipping", null: false
-    t.bigint "user_id_id"
+    t.integer "delivery_fee_id", null: false
+    t.integer "shipping_region_id", null: false
+    t.integer "days_until_shipping_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id_id"], name: "index_items_on_user_id_id"
+    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
