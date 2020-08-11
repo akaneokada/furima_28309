@@ -20,7 +20,6 @@ class Item < ApplicationRecord
     validates :delivery_fee
     validates :shipping_region
     validates :days_until_shipping
-    validates :user_id
   end
 
   # 選択が「---」の場合は保存できないようにする
