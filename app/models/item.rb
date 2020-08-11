@@ -1,5 +1,4 @@
 class Item < ApplicationRecord
-
   belongs_to :user
   has_one_attached :image
 
@@ -34,7 +33,6 @@ class Item < ApplicationRecord
   # 価格が300円以下、9,999,999円以上の場合は保存できないようにする
   validates :price, numericality: {
     only_integer: true,
-    greater_than: 300, less_than: 9999999
+    greater_than: 300, less_than: 9_999_999
   }
-
 end
