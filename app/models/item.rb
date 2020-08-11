@@ -32,4 +32,10 @@ class Item < ApplicationRecord
     validates :days_until_shipping_id
   end
 
+  # 価格が300円以下、9,999,999円以上の場合は保存できないようにする
+  validates :price, numericality: {
+    only_integer: true,
+    greater_than: 300, less_than: 9999999
+  }
+
 end
