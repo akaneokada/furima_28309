@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :move_to_index, only: :new
 
   def index
+    @items = Item.all.includes(:buyer)
   end
 
   def new
@@ -10,7 +11,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    if @item.save
+    if @item.save!
       redirect_to root_path
     else
       render :new
