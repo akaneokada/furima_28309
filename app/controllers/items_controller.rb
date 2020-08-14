@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @items = Item.all.includes(:buyer).order("created_at DESC")
+    @items = Item.all.includes(:buyer).order('created_at DESC')
   end
 
   def new
@@ -40,5 +40,4 @@ class ItemsController < ApplicationController
       :delivery_fee_id, :shipping_region_id, :days_until_shipping_id
     ).merge(user_id: current_user.id)
   end
-
 end

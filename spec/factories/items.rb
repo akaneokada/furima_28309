@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :item do
-    name                   { "オムライス" }
-    content                { "オムライスです" }
+    name                   { 'オムライス' }
+    content                { 'オムライスです' }
     category_id            { 2 }
     status_id              { 2 }
     price                  { 1000 }
