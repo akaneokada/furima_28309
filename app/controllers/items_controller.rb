@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :move_to_index, only: :new
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @items = Item.all.includes(:buyer).order("created_at DESC")
+    @items = Item.all.includes(:buyer).order('created_at DESC')
   end
 
   def new
@@ -22,11 +22,17 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  private
-
-  def move_to_index
-    redirect_to action: :index unless user_signed_in?
+  def destroy
+    @item = Item.find(params[:id])
+    if current_user.id == @item.user.id
+      @item.destroy
+      redirect_to root_path
+    else
+      render :show
+    end
   end
+
+  private
 
   def item_params
     params.require(:item).permit(
