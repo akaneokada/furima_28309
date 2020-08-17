@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.all.includes(:buyer).order('created_at DESC')
@@ -53,4 +54,12 @@ class ItemsController < ApplicationController
       :delivery_fee_id, :shipping_region_id, :days_until_shipping_id
     ).merge(user_id: current_user.id)
   end
+
+  def ensure_correct_user
+    @item = Item.find(params[:id])
+    if current_user.id != @item.user.id
+      redirect_to root_path
+    end
+  end
+
 end
