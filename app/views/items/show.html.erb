@@ -27,9 +27,9 @@
 
     <%# ログインしているユーザーが出品者の場合に表示 %>
     <% if user_signed_in? && current_user.id == @item.user_id %>
-      <%= link_to '商品の編集', "#", method: :get, class: "item-red-btn" %>
+      <%= link_to '商品の編集', edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
       <p class='or-text'>or</p>
-      <%= link_to '削除', "#", method: :delete, class:'item-destroy' %>
+      <%= link_to '削除', item_path(@item.id), method: :delete, class:'item-destroy' %>
     <% end %>
     <%# //ログインしているユーザーが出品者の場合に表示 %>
 
@@ -41,7 +41,7 @@
 
 
     <div class="item-explain-box">
-      <span><%= "商品説明" %></span>
+      <span><%= @item.content %></span>
     </div>
     <table class="detail-table">
       <tbody>

@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.all.includes(:buyer).order('created_at DESC')
@@ -23,12 +24,22 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item = Item.find(params[:id])
     if current_user.id == @item.user.id
       @item.destroy
       redirect_to root_path
     else
       render :show
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @item.update_attributes(item_params)
+      redirect_to item_path(@item.id)
+    else
+      render :edit
     end
   end
 
@@ -39,5 +50,10 @@ class ItemsController < ApplicationController
       :name, :image, :content, :category_id, :status_id, :price,
       :delivery_fee_id, :shipping_region_id, :days_until_shipping_id
     ).merge(user_id: current_user.id)
+  end
+
+  def ensure_correct_user
+    @item = Item.find(params[:id])
+    redirect_to root_path if current_user.id != @item.user.id
   end
 end
