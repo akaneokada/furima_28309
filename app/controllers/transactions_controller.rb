@@ -1,5 +1,6 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
+  before_action :ensure_correct_item, only: [:index, :create]
 
   def index
     @item = Item.find(params[:item_id])
@@ -24,6 +25,7 @@ class TransactionsController < ApplicationController
     params.permit(:price, :token, :postal_code, :prefecture, :city,
                   :house_number, :building_name, :phone_number, :item_id).merge(user_id: current_user.id)
   end
+
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
@@ -31,5 +33,10 @@ class TransactionsController < ApplicationController
       card: buyer_params[:token],
       currency:'jpy'
     )
+  end
+
+  def ensure_correct_item
+    @item = Item.find(params[:item_id])
+    redirect_to root_path if @item.buyer
   end
 end
