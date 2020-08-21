@@ -11,7 +11,7 @@ class ItemBuyer
     validates :prefecture, numericality: { other_than: 0, message: "Select" }
     validates :city
     validates :house_number
-    validates :phone_number
+    validates :phone_number, length: { maximum: 11 }
   end
 
   def save
