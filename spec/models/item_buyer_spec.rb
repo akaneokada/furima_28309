@@ -13,12 +13,12 @@ RSpec.describe ItemBuyer, type: :model do
       it 'building_nameは空でも購入できる' do
         @item_buyer.building_name = nil
         expect(@item_buyer).to be_valid
-      endo
+      end
     end
-    
+
     context '商品の購入が失敗する場合' do
       it 'クレジットカードの情報がないと購入できない' do
-        @item_buyer.token = ""
+        @item_buyer.token = ''
         @item_buyer.valid?
         expect(@item_buyer.errors.full_messages).to include("Token can't be blank")
       end
@@ -28,9 +28,9 @@ RSpec.describe ItemBuyer, type: :model do
         expect(@item_buyer.errors.full_messages).to include("Postal code can't be blank")
       end
       it 'postal_codeにハイフンが入っていないと購入できない' do
-        @item_buyer.postal_code = "1234567"
+        @item_buyer.postal_code = '1234567'
         @item_buyer.valid?
-        expect(@item_buyer.errors.full_messages).to include("Postal code Input correctly")
+        expect(@item_buyer.errors.full_messages).to include('Postal code Input correctly')
       end
       it 'prefectureが空だと購入できない' do
         @item_buyer.prefecture = nil
