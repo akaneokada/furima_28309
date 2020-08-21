@@ -1,14 +1,13 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :ensure_correct_item, only: [:index, :create]
+  before_action :jadge_buyer, only: [:index, :create]
 
   def index
-    @item = Item.find(params[:item_id])
     @buyer = ItemBuyer.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @buyer = ItemBuyer.new(buyer_params)
     if @buyer.valid?
       pay_item
@@ -38,5 +37,10 @@ class TransactionsController < ApplicationController
   def ensure_correct_item
     @item = Item.find(params[:item_id])
     redirect_to root_path if @item.buyer
+  end
+
+  def jadge_buyer
+    @item = Item.find(params[:item_id])
+    redirect_to root_path if current_user.id == @item.user_id
   end
 end
