@@ -15,10 +15,9 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :content
-    validates :price,           numericality: { only_integer: true,
-                                greater_than: 300, less_than: 9_999_999,
-                                message: 'Out of setting range'
-                                }
+    validates :price, numericality: { only_integer: true,
+                                      greater_than: 300, less_than: 9_999_999,
+                                      message: 'Out of setting range' }
     validates :category
     validates :status
     validates :delivery_fee

@@ -2,7 +2,7 @@ class ItemBuyer
   include ActiveModel::Model
   attr_accessor :price, :token, :item_id, :user_id, :postal_code, :prefecture, :city, :house_number, :building_name, :phone_number
 
-  POSTAL_CODE_REGEX = /\A\d{3}[-]\d{4}\z/
+  POSTAL_CODE_REGEX = /\A\d{3}[-]\d{4}\z/.freeze
 
   with_options presence: true do
     validates :token
