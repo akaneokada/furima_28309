@@ -52,6 +52,11 @@ RSpec.describe ItemBuyer, type: :model do
         @item_buyer.valid?
         expect(@item_buyer.errors.full_messages).to include("Phone number can't be blank")
       end
+      it 'phone_numberにハイフンが入っていると購入できない' do
+        @item_buyer.phone_number = '090-123-456'
+        @item_buyer.valid?
+        expect(@item_buyer.errors.full_messages).to include('Phone number is invalid')
+      end
     end
   end
 end
