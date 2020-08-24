@@ -12,12 +12,12 @@ class User < ApplicationRecord
     validates :email,                 uniqueness: { case_sensitive: true },
                                       format: { with: /@/ }
     validates :password,              confirmation: true,
-                                      format: { with: /\A[a-z\d]+\z/i }
+                                      format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,}+\z/i, message: 'Include both letters and numbers' }
     validates :password_confirmation
-    validates :family_name
-    validates :first_name
-    validates :family_name_kana,      format: { with: /\A[ァ-ン]+\z/ }
-    validates :first_name_kana,       format: { with: /\A[ァ-ン]+\z/ }
+    validates :family_name,           format: { with: /\A[ぁ-んァ-ン一-龥]/, message: 'Full-width characters.' }
+    validates :first_name,            format: { with: /\A[ぁ-んァ-ン一-龥]/, message: 'Full-width characters.' }
+    validates :family_name_kana,      format: { with: /\A[ァ-ン]+\z/, message: 'Full-width katakana characters' }
+    validates :first_name_kana,       format: { with: /\A[ァ-ン]+\z/, message: 'Full-width katakana characters' }
     validates :birthday
   end
 end
