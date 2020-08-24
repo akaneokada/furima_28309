@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :create]
-  before_action :ensure_correct_item, only: [:index, :create]
-  before_action :jadge_buyer, only: [:index, :create]
+  before_action :authenticate_user!
+  before_action :ensure_correct_item
+  before_action :jadge_buyer
 
   def index
     @buyer = ItemBuyer.new
