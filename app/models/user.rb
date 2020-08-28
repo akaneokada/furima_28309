@@ -12,7 +12,8 @@ class User < ApplicationRecord
     validates :email,                 uniqueness: { case_sensitive: true },
                                       format: { with: /@/ }
     validates :password,              confirmation: true,
-                                      format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,}+\z/i, message: 'Include both letters and numbers' }
+                                      format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,}+\z/i,
+                                                message: 'Include both letters and numbers' }
     validates :password_confirmation
     validates :family_name,           format: { with: /\A[ぁ-んァ-ン一-龥]/, message: 'Full-width characters.' }
     validates :first_name,            format: { with: /\A[ぁ-んァ-ン一-龥]/, message: 'Full-width characters.' }
