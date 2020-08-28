@@ -12,7 +12,7 @@ class Item < ApplicationRecord
   belongs_to_active_hash :days_until_shipping
 
   with_options presence: true do
-    validates :image
+    validates :images
     validates :name
     validates :content
     validates :price, numericality: { only_integer: true,
