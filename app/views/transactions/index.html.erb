@@ -7,7 +7,10 @@
     </h1>
     <%# 購入内容の表示 %>
     <div class='buy-item-info'>
-      <%= image_tag @item.image, class: 'buy-item-img' %>
+      <% if @item.images.count > 0 %>
+        <%= image_tag @item.images.first, class:"buy-item-img" %>
+      <% end %>
+      <%# <%= image_tag @item.images.first, class: 'buy-item-img' %>
       <div class='buy-item-right-content'>
         <h2 class='buy-item-text'>
           <%= @item.name %>
