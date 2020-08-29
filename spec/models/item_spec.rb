@@ -3,12 +3,20 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   before do
     @item = FactoryBot.build(:item)
-    @item.image = fixture_file_upload('public/test_image.png')
   end
+
+  # 変数を定義して画像の枚数を変えられるようにする
+  let(:image_path) { Rails.root.join('spec/fixtures/test_image.png') }
+  let(:image) { Rack::Test::UploadedFile.new(image_path) }
 
   describe '商品出品機能' do
     context '商品の出品が成功する場合' do
-      it '全て正しく入力されていれば登録できる' do
+      it '全て正しく入力されていれば出品できる' do
+        expect(@item).to be_valid
+      end
+
+      it '画像が2枚でも出品できる' do
+        @item = FactoryBot.build(:item, images: [image, image])
         expect(@item).to be_valid
       end
     end
@@ -19,10 +27,10 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Name can't be blank")
       end
-      it 'imageが空だと出品できない' do
-        @item.image = nil
+      it 'imagesが空だと出品できない' do
+        @item.images = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Image can't be blank")
+        expect(@item.errors.full_messages).to include("Images can't be blank")
       end
       it 'contentが空だと出品できない' do
         @item.content = nil
