@@ -8,7 +8,7 @@ class ItemBuyer
     validates :token
     validates :item_id
     validates :user_id
-    validates :postal_code, format: { with: POSTAL_CODE_REGEX, message: 'Input correctly' }
+    validates :postal_code, format: { with: POSTAL_CODE_REGEX, message: 'にハイフンを含めてください' }
     validates :prefecture
     validates :city
     validates :house_number

@@ -17,7 +17,7 @@ class Item < ApplicationRecord
     validates :content
     validates :price, numericality: { only_integer: true,
                                       greater_than: 300, less_than: 9_999_999,
-                                      message: 'Out of setting range' }
+                                      message: 'は規定の範囲外です' }
     validates :category
     validates :status
     validates :delivery_fee
@@ -26,7 +26,7 @@ class Item < ApplicationRecord
   end
 
   # 選択が「---」の場合は保存できないようにする
-  with_options numericality: { other_than: 1, message: 'Select' } do
+  with_options numericality: { other_than: 1, message: 'を選択してください' } do
     validates :category_id
     validates :status_id
     validates :delivery_fee_id
