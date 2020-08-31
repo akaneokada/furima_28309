@@ -1,7 +1,9 @@
 FactoryBot.define do
   factory :item do
-    images                 { [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/test_image.png'),
-                              'image/png')] }
+    images do
+      [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/test_image.png'),
+                                    'image/png')]
+    end
     name                   { 'オムライス' }
     content                { 'オムライスです' }
     category_id            { 2 }
