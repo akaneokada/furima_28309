@@ -5,7 +5,7 @@ RSpec.describe '商品の出品', type: :system do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.build(:item)
   end
-  context '商品の出品ができる時'do
+  context '商品の出品ができる時' do
     it 'ログインしたユーザーは商品を出品する事ができる' do
       # ログインする
       visit new_user_session_path
@@ -18,7 +18,7 @@ RSpec.describe '商品の出品', type: :system do
       # 出品ページに移動する
       visit new_item_path
       # フォームに情報を入力する
-      attach_file "item[images][]", "#{Rails.root}/spec/fixtures/test_image.png"
+      attach_file 'item[images][]', "#{Rails.root}/spec/fixtures/test_image.png"
       fill_in 'item-name', with: @item.name
       fill_in 'item-info', with: @item.content
       find('#item-category').find("option[value='2']").select_option
@@ -28,9 +28,9 @@ RSpec.describe '商品の出品', type: :system do
       find('#item-scheduled-delivery').find("option[value='2']").select_option
       fill_in 'item-price', with: @item.price
       # 送信するとItemモデルのカウントが1上がることを確認する
-      expect{
+      expect  do
         find('input[name="commit"]').click
-      }.to change { Item.count }.by(1)
+      end.to change { Item.count }.by(1)
       # 出品が完了するとトップページへ遷移する
       expect(current_path).to eq root_path
       # トップページに出品した商品の画像が存在することを確認する
@@ -41,7 +41,7 @@ RSpec.describe '商品の出品', type: :system do
       expect(page).to have_content(@item.price)
     end
   end
-  context '商品の出品ができない時'do
+  context '商品の出品ができない時' do
     it 'ログインしていないユーザーは出品ページに遷移できない' do
       # トップページに遷移する
       visit root_path
@@ -82,29 +82,29 @@ RSpec.describe '出品した商品の編集', type: :system do
       ).to eq @item1.content
       expect(
         find('#item-category').value
-      ).to eq "#{@item1.category_id}"
+      ).to eq @item1.category_id.to_s
       expect(
         find('#item-sales-status').value
-      ).to eq "#{@item1.status_id}"
+      ).to eq @item1.status_id.to_s
       expect(
         find('#item-shipping-fee-status').value
-      ).to eq "#{@item1.delivery_fee_id}"
+      ).to eq @item1.delivery_fee_id.to_s
       expect(
         find('#item-prefecture').value
-      ).to eq "#{@item1.shipping_region_id}"
+      ).to eq @item1.shipping_region_id.to_s
       expect(
         find('#item-scheduled-delivery').value
-      ).to eq "#{@item1.days_until_shipping_id}"
+      ).to eq @item1.days_until_shipping_id.to_s
       expect(
         find('#item-price').value
-      ).to eq "#{@item1.price}"
+      ).to eq @item1.price.to_s
       # 商品の内容を編集する（商品名と価格を編集し確認する）
       fill_in 'item-name', with: "#{@item1.name}+(編集しました)"
-      fill_in 'item-price', with: "#{@item1.price + 1000}"
+      fill_in 'item-price', with: (@item1.price + 1000).to_s
       # 編集してもItemモデルのカウントは変わらないことを確認する
-      expect{
+      expect  do
         find('input[name="commit"]').click
-      }.to change { Item.count }.by(0)
+      end.to change { Item.count }.by(0)
       # 編集完了後、詳細ページ遷移したことを確認する
       expect(current_path).to eq item_path(@item1)
       # トップページに遷移する
@@ -112,7 +112,7 @@ RSpec.describe '出品した商品の編集', type: :system do
       # トップページに編集した商品の商品名が存在することを確認する
       expect(page).to have_content("#{@item1.name}+(編集しました)")
       # トップページに編集した商品の価格が存在することを確認する
-      expect(page).to have_content("#{@item1.price + 1000}")
+      expect(page).to have_content((@item1.price + 1000).to_s)
     end
   end
   context '商品の編集ができないとき' do
@@ -163,9 +163,9 @@ RSpec.describe '出品した商品の削除', type: :system do
       # 「削除」ボタンがあることを確認する
       expect(page).to have_link '削除', href: item_path(@item1)
       # 出品した商品を削除するとレコードの数が1減ることを確認する
-      expect{
+      expect do
         find_link('削除', href: item_path(@item1)).click
-      }.to change { Item.count }.by(-1)
+      end.to change { Item.count }.by(-1)
       # 削除が完了するとトップページに遷移していることを確認する
       expect(current_path).to eq root_path
       # トップページに遷移する
