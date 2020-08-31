@@ -3,3 +3,9 @@
   width: 100px;
   object-fit: contain;
 }
+
+.item-images {
+  height: 100px;
+  width: 100px;
+  object-fit: contain; 
+}
